@@ -134,8 +134,31 @@ bool LoadDataFromPdb(
     hr = (*ppSource)->loadDataForExe(szFilename, wszSearchPath, &callback);
 
     if (FAILED(hr)) {
-      wprintf(L"loadDataForExe failed - HRESULT = %08X\n", hr);
-
+      wprintf(L"loadDataForExe failed - HRESULT = %08X", hr);
+	  switch (hr)
+	  {
+	  case E_PDB_NOT_FOUND:
+		  wprintf(L" E_PDB_NOT_FOUND\n");
+		  break;
+	  case E_PDB_FORMAT:
+		  wprintf(L" E_PDB_FORMAT\n");
+		  break;
+	  case E_PDB_INVALID_SIG:
+		  wprintf(L" E_PDB_INVALID_SIG\n");
+		  break;
+	  case E_PDB_INVALID_AGE:
+		  wprintf(L" E_PDB_INVALID_AGE\n");
+		  break;
+	  case E_INVALIDARG:
+		  wprintf(L" E_INVALIDARG\n");
+		  break;
+	  case E_UNEXPECTED:
+		  wprintf(L" E_UNEXPECTED\n");
+		  break;
+	  default:
+		  wprintf(L" ??\n");
+		  break;
+	  }
       return false;
     }
   }
